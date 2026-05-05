@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frontend Tutorials</title>
-    <script src="https://unpkg.com/htmx.org@1.8.6"></script> 
+    <script src="https://unpkg.com/htmx.org@1.8.6"></script>
     <!-- use global.css -->
     <link rel="stylesheet" href="global.css">
 </head>
 <body>
     <!-- list of tutorials -->
-    <ul id="tutorial-list" 
+    <ol id="tutorial-list" 
         hx-boost="true" 
         hx-target="next .tutorial-content" hx-push-url="false"
     >
@@ -23,29 +23,34 @@
                 </li>
 
              </ul>
-     </ul>
+     </ol>
 
-     <script>
-      const tutList = document.getElementById("tutorial-list");
-      console.assert(tutList !== null, "tutList is null");
+     <script type="module">
+        import { setupToggleAnchor } from "./htmx/toggleAnchor.js";
+    
+        const tutList = document.getElementById("tutorial-list");
+        console.assert(tutList !== null, "tutList is null");
 
-      // Turn anchors into toggles
-      //    the fetched content will be removed after 2nd click
-      tutList?.addEventListener("htmx:beforeSwap", (htmxEvt) => {
-        const tgt = htmxEvt.detail.target;
- 
-        const numOfChildren = tgt.childNodes.length;
-        if (numOfChildren > 0) {
-          htmxEvt.detail.serverResponse = "";
-          return;
-        }
+        setupToggleAnchor(tutList);
 
-        // preloading
-        console.log(htmxEvt.detail.requestConfig.triggeringEvent.type);
-        if (htmxEvt.detail.requestConfig.triggeringEvent.type === "load") {
-          htmxEvt.detail.shouldSwap=false;
-        }
-      });
+        // Turn anchors into toggles
+        //    the fetched content will be removed after 2nd click
+
+        //   tutList?.addEventListener("htmx:beforeSwap", (htmxEvt) => {
+        //     const tgt = htmxEvt.detail.target;
+    
+        //     const numOfChildren = tgt.childNodes.length;
+        //     if (numOfChildren > 0) {
+        //       htmxEvt.detail.serverResponse = "";
+        //       return;
+        //     }
+
+        //     // preloading
+        //     console.log(htmxEvt.detail.requestConfig.triggeringEvent.type);
+        //     if (htmxEvt.detail.requestConfig.triggeringEvent.type === "load") {
+        //       htmxEvt.detail.shouldSwap=false;
+        //     }
+        //   });
     </script>
 </body>
 </html>
