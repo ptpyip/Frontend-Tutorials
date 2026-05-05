@@ -15,11 +15,29 @@
     </select>
 
     <style>
-        select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
+        /* Dark bg */
+
+        body {
+            background-color: #333;
+            color: #fff;
+            font-family: Arial, sans-serif;
         }
+
+        select {
+            appearance: base-select;
+
+            /* No need override when setting appearance 
+            -webkit-appearance: none;
+            -moz-appearance: none; 
+            */
+        }
+
+        /* BUG: Cannot test option style on macOS */
+        /* select option {
+            background-color: red;
+            padding: 10px;
+        } */
+        
     </style>
 </body>
 </html>
