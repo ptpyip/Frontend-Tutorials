@@ -24,5 +24,28 @@
 
              </ul>
      </ul>
+
+     <script>
+      const tutList = document.getElementById("tutorial-list");
+      console.assert(tutList !== null, "tutList is null");
+
+      // Turn anchors into toggles
+      //    the fetched content will be removed after 2nd click
+      tutList?.addEventListener("htmx:beforeSwap", (htmxEvt) => {
+        const tgt = htmxEvt.detail.target;
+ 
+        const numOfChildren = tgt.childNodes.length;
+        if (numOfChildren > 0) {
+          htmxEvt.detail.serverResponse = "";
+          return;
+        }
+
+        // preloading
+        console.log(htmxEvt.detail.requestConfig.triggeringEvent.type);
+        if (htmxEvt.detail.requestConfig.triggeringEvent.type === "load") {
+          htmxEvt.detail.shouldSwap=false;
+        }
+      });
+    </script>
 </body>
 </html>
